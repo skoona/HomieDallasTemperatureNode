@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.osx": {
+        "PATH": "/usr/local/Cellar/platformio/4.1.0_1/penv/bin:/usr/local/Cellar/platformio/4.1.0_1/penv:/Users/jscott/.rvm/gems/ruby-2.6.0/bin:/Users/jscott/.rvm/gems/ruby-2.6.0@global/bin:/Users/jscott/.rvm/rubies/ruby-2.6.0/bin:/Users/jscott/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin:/Users/jscott/.rvm/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}

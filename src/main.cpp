@@ -11,7 +11,6 @@
  */
 
 #include <Arduino.h>
-#include <OneWire.h>
 #include <Homie.h>
 #include "DallasTemperatureNode.hpp"
 
@@ -32,8 +31,6 @@ extern "C"
 #define SKN_MOD_BRAND "SknSensors"
 #define SKN_MOD_TITLE "Environment Monitor"
 #define SKN_NODE_ID "DS18B20" // "environmentMonitor"
-
-
 
 const uint8_t DTN_RANGE_LOWER = 0;
 const uint8_t DTN_RANGE_UPPER = 3;

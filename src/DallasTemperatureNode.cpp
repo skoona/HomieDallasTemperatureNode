@@ -37,14 +37,14 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
   sensor->begin();
 
   // set global resolution to 9, 10, 11, or 12 bits
-  //sensor->setResolution(12);
+  sensor->setResolution(12);
 }
 
 /**
  * Called by Homie when Homie.setup() is called; Once!
  */
-  void DallasTemperatureNode::setup() {    
-    advertise(cHomieNodeState).setName(cHomieNodeStateName);
+  void DallasTemperatureNode::setup() {
+    advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string");
     advertise(cTemperature).setName(cTemperatureName).setDatatype("float").setUnit(cTemperatureUnit);
 
     initializeSensors();
@@ -155,12 +155,12 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
     }
   }
 
-  /**
+/**
  *
  */
   void DallasTemperatureNode::printCaption() { Homie.getLogger() << cCaption << endl; }
 
-  /**
+/**
  *
  */
   String DallasTemperatureNode::address2String(const DeviceAddress deviceAddress) {

@@ -44,8 +44,8 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
  * Called by Homie when Homie.setup() is called; Once!
  */
   void DallasTemperatureNode::setup() {
-    advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string");
-    advertise(cTemperature).setName(cTemperatureName).setDatatype("float").setUnit(cTemperatureUnit);
+    advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string").setRetained(true);
+    advertise(cTemperature).setName(cTemperatureName).setDatatype("float").setUnit(cTemperatureUnit).setRetained(true);
 
     initializeSensors();
   }
@@ -106,7 +106,7 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
           if ( sensor->validAddress(deviceAddress[i]) ) {  // make sure we have an address
             sensorRange.index = i;
             _temperature = sensor->getTempF(deviceAddress[i]);  // Changed getTempC to getTempF
-            if (DEVICE_DISCONNECTED_F == _temperature)
+            if ((_temperature > 184.0) || (DEVICE_DISCONNECTED_F == _temperature))
             {
               Homie.getLogger() << cIndent
                                 << F("✖ Error reading sensor") 

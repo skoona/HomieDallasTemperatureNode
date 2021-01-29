@@ -9,6 +9,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
+// Configurable Request
 typedef struct __attribute__((packed)) _entry {
   uint8_t index;
   char property[32];

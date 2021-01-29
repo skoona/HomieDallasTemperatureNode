@@ -68,7 +68,6 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
       advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string");
       advertise(cTemperature).setName(cTemperatureName).setDatatype("string");
     }
-
   }
 
 /**

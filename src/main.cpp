@@ -32,13 +32,19 @@ extern "C"
 #define SKN_MOD_TITLE "Environment Monitor"
 #define SKN_NODE_ID "DS18B20" // "environmentMonitor"
 
-DallasProperties tempRequest = {4, 
-  {
-    {0, "tempSucPool",   "Pool Suction Temp",  "tempSucPoolState",   "Pool Suction State",  "a"},
-    {1, "tempRetPool",   "Pool Return Temp",   "tempRetPoolState",   "Pool Return State",   "b"},
-    {2, "tempSucSpa",    "Pool Suction Temp",  "tempSucSpaState",    "Pool Suction State",  "c"},
-    {3, "tempRetSpa",    "SPA Return Temp",    "tempRetSpaState",    "SPA Return State",    "d"},
-    {4, "tempRetHeater", "Heater Return Temp", "tempRetHeaterState", "Heater Return State", "e"}
+/*
+15:23:17.400 >   ◦ Temperature=74.97 for address=28e20b943c1901a3
+15:23:17.414 >   ◦ Temperature=75.43 for address=2866fc543c19015b
+15:23:17.427 >   ◦ Temperature=75.31 for address=28f957453c19013a
+15:23:17.440 >   ◦ Temperature=74.52 for address=28fd883f3c190164
+*/
+DallasProperties tempRequest = {5, 
+  { //                                                                                    format: 28e20b943c1901a3
+    {0, "tempSucPool",   "Pool Suction Temp",  "tempSucPoolState",   "Pool Suction State",  "2866fc543c19015b"},
+    {1, "tempRetPool",   "Pool Return Temp",   "tempRetPoolState",   "Pool Return State",   "28f957453c19013a"},
+    {2, "tempSucSpa",    "Pool Suction Temp",  "tempSucSpaState",    "Pool Suction State",  "28e20b943c1901a3"},
+    {3, "tempRetSpa",    "SPA Return Temp",    "tempRetSpaState",    "SPA Return State",    "28fd883f3c190164"},
+    {4, "tempRetHeater", "Heater Return Temp", "tempRetHeaterState", "Heater Return State", "28f957453c19013a"}
   }
 };
 

@@ -16,6 +16,7 @@ typedef struct __attribute__((packed)) _entry {
   char propertyState[32];
   char propertyStateName[32];
   char deviceAddressStr[24];
+  DeviceAddress deviceAddress;
 } DallasPropertyEntry, *pDallasPropertyEntry;
 
 typedef struct __attribute__((packed)) _container {

@@ -37,7 +37,7 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
   sensor->begin();
 
   // set global resolution to 9, 10, 11, or 12 bits
-  sensor->setResolution(12);
+  // sensor->setResolution(12);
 }
 
 /**
@@ -112,12 +112,13 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
                                 << F("✖ Error reading sensor") 
                                 << address2String(deviceAddress[i]) 
                                 << ". Request count: " << i
+                                << ", value read=" << _temperature
                                 << endl;
               if (isRange())
               {
                 setProperty(cHomieNodeState).setRange(sensorRange).send(cHomieNodeState_Error);
               } else {
-                setProperty(cHomieNodeState).send(cHomieNodeState_Error);
+                setProperty(cHomieNodeState).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Error, 0.0F));
               }
             }
             else
@@ -133,8 +134,8 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
                 setProperty(cHomieNodeState).setRange(sensorRange).send(cHomieNodeState_OK);
                 setProperty(cTemperature).setRange(sensorRange).send(String(_temperature));
               }else {
-                setProperty(cHomieNodeState).send(cHomieNodeState_OK);
-                setProperty(cTemperature).send(String(_temperature));
+                setProperty(cHomieNodeState).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_OK, 0.0F));
+                setProperty(cTemperature).send(prepareNodeMessage(sensorRange.index, NULL, _temperature));
               }
             }
           }
@@ -147,7 +148,7 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
         }
         else
         {
-          setProperty(cHomieNodeState).send(cHomieNodeState_Error);
+          setProperty(cHomieNodeState).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Error, 0.0F));
         }
         //re-init
         initializeSensors();
@@ -176,4 +177,22 @@ DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, c
     }
 
     return adr;
+  }
+  /**
+   * @brief Build JSON messages for non-range mode
+   * 
+   *  {"1":{"deviceAddress":"28e20b943c1901a3","State":"Ok"}}
+   *  {"1":{"deviceAddress":"28e20b943c1901a3","Temperature":72.5}}
+   */
+  String DallasTemperatureNode::prepareNodeMessage(uint8_t idx, const char *stateValue, float tempValue = 0.0F)
+  {
+    if (NULL == stateValue) {
+      snprintf(chMessageBuffer, sizeof(chMessageBuffer), "{\"%d\":{\"deviceAddress\":\"%s\",\"Temperature\":%f}}", idx, address2String(deviceAddress[idx]).c_str(), tempValue);      
+    } else {
+      snprintf(chMessageBuffer, sizeof(chMessageBuffer), "{\"%d\":{\"deviceAddress\":\"%s\",\"State\":\"%s\"}}", idx, address2String(deviceAddress[idx]).c_str(), stateValue);
+    }
+
+    Homie.getLogger() << "Payload=" << chMessageBuffer << endl;
+
+    return String(chMessageBuffer);
   }

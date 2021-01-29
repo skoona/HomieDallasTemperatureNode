@@ -37,7 +37,7 @@ const uint8_t DTN_RANGE_UPPER = 3;
 const uint8_t PIN_DS_POOL = D4; // Pin of Temp-Sensor Pool
 const uint8_t TEMP_READ_INTERVALL = 30;
 
-DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_MOD_TITLE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);
+DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_MOD_TITLE, PIN_DS_POOL, TEMP_READ_INTERVALL); //, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);
 
 bool broadcastHandler(const String &level, const String &value)
 {

@@ -86,8 +86,9 @@ DallasProperties poolRequest = {5,
 }
 ```
 
-## Homie MQTT Log
+## Homie MQTT Log (Advanced/Customized)
 ```
+sknSensors/DSMonitor/$state lost
 sknSensors/DSMonitor/$state init
 sknSensors/DSMonitor/$homie 3.0.1
 sknSensors/DSMonitor/$name Environment-DS18B20
@@ -98,52 +99,57 @@ sknSensors/DSMonitor/$stats uptime
 sknSensors/DSMonitor/$stats/interval 905
 sknSensors/DSMonitor/$fw/name Environment-DS18B20
 sknSensors/DSMonitor/$fw/version 1.0.2
-sknSensors/DSMonitor/$fw/checksum dce97dc234eb5af300b5270f1f9aa310
+sknSensors/DSMonitor/$fw/checksum b749ba42c2bf7becf74dd0d98fab2e54
 sknSensors/DSMonitor/$implementation esp8266
 sknSensors/DSMonitor/$implementation/config {"name":"Environment-DS18B20","device_id":"DSMonitor","device_stats_interval":900,"wifi":{"ssid":"SFNSS1-24G"},"mqtt":{"host":"openhab.skoona.net","port":1883,"base_topic":"sknSensors/","auth":true},"ota":{"enabled":true},"settings":{"sensorsInterval":900}}
 sknSensors/DSMonitor/$implementation/version 3.0.0
 sknSensors/DSMonitor/$implementation/ota/enabled true
 sknSensors/DSMonitor/DS18B20/$name Environment Monitor
-sknSensors/DSMonitor/DS18B20/$type temperature
+sknSensors/DSMonitor/DS18B20/$type sensor
 sknSensors/DSMonitor/DS18B20/$properties tempSucPoolState,tempSucPool,tempRetPoolState,tempRetPool,tempSucSpaState,tempSucSpa,tempRetSpaState,tempRetSpa,tempRetHeaterState,tempRetHeater
 sknSensors/DSMonitor/DS18B20/tempSucPoolState/$name Pool Suction State
 sknSensors/DSMonitor/DS18B20/tempSucPoolState/$datatype string
+sknSensors/DSMonitor/DS18B20/tempSucPoolState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/DS18B20/tempSucPool/$name Pool Suction Temp
 sknSensors/DSMonitor/DS18B20/tempSucPool/$datatype float
 sknSensors/DSMonitor/DS18B20/tempSucPool/$unit °F
 sknSensors/DSMonitor/DS18B20/tempRetPoolState/$name Pool Return State
 sknSensors/DSMonitor/DS18B20/tempRetPoolState/$datatype string
+sknSensors/DSMonitor/DS18B20/tempRetPoolState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/DS18B20/tempRetPool/$name Pool Return Temp
 sknSensors/DSMonitor/DS18B20/tempRetPool/$datatype float
 sknSensors/DSMonitor/DS18B20/tempRetPool/$unit °F
 sknSensors/DSMonitor/DS18B20/tempSucSpaState/$name Pool Suction State
 sknSensors/DSMonitor/DS18B20/tempSucSpaState/$datatype string
+sknSensors/DSMonitor/DS18B20/tempSucSpaState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/DS18B20/tempSucSpa/$name Pool Suction Temp
 sknSensors/DSMonitor/DS18B20/tempSucSpa/$datatype float
 sknSensors/DSMonitor/DS18B20/tempSucSpa/$unit °F
 sknSensors/DSMonitor/DS18B20/tempRetSpaState/$name SPA Return State
 sknSensors/DSMonitor/DS18B20/tempRetSpaState/$datatype string
+sknSensors/DSMonitor/DS18B20/tempRetSpaState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/DS18B20/tempRetSpa/$name SPA Return Temp
 sknSensors/DSMonitor/DS18B20/tempRetSpa/$datatype float
 sknSensors/DSMonitor/DS18B20/tempRetSpa/$unit °F
 sknSensors/DSMonitor/DS18B20/tempRetHeaterState/$name Heater Return State
 sknSensors/DSMonitor/DS18B20/tempRetHeaterState/$datatype string
+sknSensors/DSMonitor/DS18B20/tempRetHeaterState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/DS18B20/tempRetHeater/$name Heater Return Temp
 sknSensors/DSMonitor/DS18B20/tempRetHeater/$datatype float
 sknSensors/DSMonitor/DS18B20/tempRetHeater/$unit °F
 sknSensors/DSMonitor/$state ready
-sknSensors/DSMonitor/DS18B20/tempSucPool 76.66
+sknSensors/DSMonitor/DS18B20/tempSucPool 75.88
 sknSensors/DSMonitor/DS18B20/tempSucPoolState OK
-sknSensors/DSMonitor/DS18B20/tempRetPool 76.44
+sknSensors/DSMonitor/DS18B20/tempRetPool 75.54
 sknSensors/DSMonitor/DS18B20/tempRetPoolState OK
-sknSensors/DSMonitor/DS18B20/tempSucSpa 76.44
+sknSensors/DSMonitor/DS18B20/tempSucSpa 75.09
 sknSensors/DSMonitor/DS18B20/tempSucSpaState OK
-sknSensors/DSMonitor/DS18B20/tempRetSpa 75.76
+sknSensors/DSMonitor/DS18B20/tempRetSpa 74.30
 sknSensors/DSMonitor/DS18B20/tempRetSpaState OK
-sknSensors/DSMonitor/DS18B20/tempRetHeater 76.44
+sknSensors/DSMonitor/DS18B20/tempRetHeater 75.54
 sknSensors/DSMonitor/DS18B20/tempRetHeaterState OK
 sknSensors/DSMonitor/$stats/interval 905
-sknSensors/DSMonitor/$stats/signal 72
+sknSensors/DSMonitor/$stats/signal 82
 sknSensors/DSMonitor/$stats/uptime 5
 
 ```

@@ -12,10 +12,10 @@
 // Configurable Request
 typedef struct __attribute__((packed)) _entry {
   uint8_t index;
-  char property[32];
-  char propertyName[32];
-  char propertyState[32];
-  char propertyStateName[32];
+  char property[25];
+  char propertyName[25];
+  char propertyState[25];
+  char propertyStateName[25];
   char deviceAddressStr[24];
   DeviceAddress deviceAddress;
 } DallasPropertyEntry, *pDallasPropertyEntry;
@@ -59,10 +59,12 @@ private:
 
   const char* cHomieNodeState      = "state";
   const char* cHomieNodeStateName  = "State";
+  const char *cHomieNodeStateType = "enum";
+  const char *cHomieNodeStateFormat = "OK,Error,InvalidAddress";
 
   const char* cHomieNodeState_OK    = "OK";
   const char* cHomieNodeState_Error = "Error";
-  const char* cHomieNodeState_Address = "InvalidAddress";
+  const char *cHomieNodeState_Address = "InvalidAddress";
 
   pDallasProperties requestedProperties = NULL;
 
@@ -79,9 +81,9 @@ private:
   uint8_t       _pin;
   unsigned long _measurementInterval;
   unsigned long _lastMeasurement;
-  int _rangeCount;
-  float _temperature = NAN;
-  char chMessageBuffer[256];
+  int           _rangeCount;
+  float         _temperature = NAN;
+  char          chMessageBuffer[256];
 
   OneWire*           oneWire;
   DallasTemperature* sensor;

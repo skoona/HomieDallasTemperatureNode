@@ -55,15 +55,15 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
     initializeSensors();
   
     if(isRange()) {
-      advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string").setFormat("OK,Error,InvalidAddress");
+      advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype(cHomieNodeStateType).setFormat(cHomieNodeStateFormat);
       advertise(cTemperature).setName(cTemperatureName).setDatatype("float").setUnit(cTemperatureUnit);
 
     } else if (NULL != requestedProperties) {
       for (uint8_t i = 0; i < requestedProperties->entryCount; i++) {
         advertise(requestedProperties->entries[i].propertyState)
             .setName(requestedProperties->entries[i].propertyStateName)
-            .setDatatype("string")
-            .setFormat("OK,Error,InvalidAddress");
+            .setDatatype(cHomieNodeStateType)
+            .setFormat(cHomieNodeStateFormat);
         advertise(requestedProperties->entries[i].property)
             .setName(requestedProperties->entries[i].propertyName)
             .setDatatype("float")
@@ -71,7 +71,7 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
       }
 
     } else {
-      advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype("string");
+      advertise(cHomieNodeState).setName(cHomieNodeStateName).setDatatype(cHomieNodeStateType).setFormat(cHomieNodeStateFormat);
       advertise(cTemperature).setName(cTemperatureName).setDatatype("string").setFormat("OK,Error,InvalidAddress");
     }
   }
@@ -100,10 +100,15 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
     }
 
     // report parasite power requirements
-    Homie.getLogger() << cIndent << F("Parasite power is: ") << sensor->isParasitePowerMode() << endl;
+    Homie.getLogger() << cIndent 
+                      << F("Parasite power is: ") << sensor->isParasitePowerMode() 
+                      << endl;
 
     if (numberOfDevices > 0) {
-      Homie.getLogger() << cIndent << numberOfDevices << F(" devices found on PIN ") << _pin << endl;
+      Homie.getLogger() << cIndent 
+                        << numberOfDevices 
+                        << F(" devices found on PIN ") << _pin 
+                        << endl;
       
       for (uint8_t i = 0; i < numberOfDevices; i++) {
         // Load the address list sequence
@@ -126,11 +131,11 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
                           << endl;
         } else {            
           sensor->getAddress(deviceAddress[i], i);
-          String adr = address2String(deviceAddress[i]);
+          HomieInternals::Helpers::byteArrayToHexString(deviceAddress[i], chMessageBuffer, sizeof(DeviceAddress));
           Homie.getLogger() << cIndent 
                           << F("PIN ") << _pin << F(": ") 
                           << F("Device ") << i 
-                          << F(" using address ") << adr
+                          << F(" using address ") << chMessageBuffer
                           << endl;
         }        
       }
@@ -165,34 +170,47 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
 
             if ((_temperature > 184.0) || (DEVICE_DISCONNECTED_F == _temperature))
             {
+              HomieInternals::Helpers::byteArrayToHexString(*workingAddress, chMessageBuffer, sizeof(DeviceAddress));
               Homie.getLogger() << cIndent
-                                << F("✖ Error reading sensor") 
-                                << address2String(*workingAddress) 
+                                << F("✖ Error reading sensor")
+                                << chMessageBuffer
                                 << ". Request count: " << i
                                 << ", value read=" << _temperature
                                 << endl;
               if (isRange())
               {
-                setProperty(cHomieNodeState).setRange(sensorRange).setRetained(true).send(cHomieNodeState_Error);
+                setProperty(cHomieNodeState)
+                    .setRange(sensorRange)
+                    .setRetained(true)
+                    .send(cHomieNodeState_Error);
               } else if (NULL != requestedProperties) {
                 setProperty(requestedProperties->entries[i].propertyState)
                     .setRetained(true)
                     .send(cHomieNodeState_Error);
               } else {
-                setProperty(cHomieNodeState).setRetained(true).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Error, 0.0F));
+                setProperty(cHomieNodeState)
+                    .setRetained(true)
+                    .send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Error, 0.0F));
               }
 
             } else {
-              Homie.getLogger() << cIndent 
-                                << F("Temperature=") 
+              HomieInternals::Helpers::byteArrayToHexString(*workingAddress, chMessageBuffer, sizeof(DeviceAddress));
+              Homie.getLogger() << cIndent
+                                << F("Temperature=")
                                 << _temperature
-                                << " for address=" 
-                                << address2String(*workingAddress) 
+                                << " for address="
+                                << chMessageBuffer
                                 << endl;
 
               if (isRange()) {
-                setProperty(cHomieNodeState).setRange(sensorRange).setRetained(true).send(cHomieNodeState_OK);
-                setProperty(cTemperature).setRange(sensorRange).setRetained(true).send(String(_temperature));
+                setProperty(cHomieNodeState)
+                    .setRange(sensorRange)
+                    .setRetained(true)
+                    .send(cHomieNodeState_OK);
+                setProperty(cTemperature)
+                    .setRange(sensorRange)
+                    .setRetained(true)
+                    .send(String(_temperature));
               } else if (NULL != requestedProperties) {
                 setProperty(requestedProperties->entries[i].property)
                     .setRetained(true)
@@ -201,26 +219,36 @@ DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, c
                     .setRetained(true)
                     .send(cHomieNodeState_OK);
               } else {
-                setProperty(cHomieNodeState).setRetained(true).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_OK, 0.0F));
-                setProperty(cTemperature).setRetained(true).send(prepareNodeMessage(sensorRange.index, NULL, _temperature));
+                setProperty(cHomieNodeState)
+                    .setRetained(true)
+                    .send(prepareNodeMessage(sensorRange.index, cHomieNodeState_OK, 0.0F));
+                setProperty(cTemperature)
+                    .setRetained(true)
+                    .send(prepareNodeMessage(sensorRange.index, NULL, _temperature));
               }
             }
           } else { // if address is invalid
-              Homie.getLogger() << cIndent
-                                << F("✖ Error reading sensor") 
-                                << address2String(*workingAddress) 
-                                << ". Request count: " << i
-                                << ", Invalid Address!"
-                                << endl;
-              if (isRange())
-              {
-                setProperty(cHomieNodeState).setRange(sensorRange).setRetained(true).send(cHomieNodeState_Address);
+            HomieInternals::Helpers::byteArrayToHexString(*workingAddress, chMessageBuffer, sizeof(DeviceAddress));
+            Homie.getLogger() << cIndent
+                              << F("✖ Error reading sensor")
+                              << chMessageBuffer
+                              << ". Request count: " << i
+                              << ", Invalid Address!"
+                              << endl;
+            if (isRange())
+            {
+              setProperty(cHomieNodeState)
+                  .setRange(sensorRange)
+                  .setRetained(true)
+                  .send(cHomieNodeState_Address);
               } else if (NULL != requestedProperties) {
                 setProperty(requestedProperties->entries[i].propertyState)
                     .setRetained(true)
                     .send(cHomieNodeState_Address);
               } else {
-                setProperty(cHomieNodeState).setRetained(true).send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Address, 0.0F));
+                setProperty(cHomieNodeState)
+                    .setRetained(true)
+                    .send(prepareNodeMessage(sensorRange.index, cHomieNodeState_Address, 0.0F));
               }
           }
         } // loop end

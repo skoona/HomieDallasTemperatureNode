@@ -118,31 +118,31 @@ sknSensors/DSMonitor/Ambient/$name Environment Monitor
 sknSensors/DSMonitor/Ambient/$type sensor
 sknSensors/DSMonitor/Ambient/$properties tempSucPoolState,tempSucPool,tempRetPoolState,tempRetPool,tempSucSpaState,tempSucSpa,tempRetSpaState,tempRetSpa,tempRetHeaterState,tempRetHeater
 sknSensors/DSMonitor/Ambient/tempSucPoolState/$name Pool Suction State
-sknSensors/DSMonitor/Ambient/tempSucPoolState/$datatype string
+sknSensors/DSMonitor/Ambient/tempSucPoolState/$datatype enum
 sknSensors/DSMonitor/Ambient/tempSucPoolState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/tempSucPool/$name Pool Suction Temp
 sknSensors/DSMonitor/Ambient/tempSucPool/$datatype float
 sknSensors/DSMonitor/Ambient/tempSucPool/$unit °F
 sknSensors/DSMonitor/Ambient/tempRetPoolState/$name Pool Return State
-sknSensors/DSMonitor/Ambient/tempRetPoolState/$datatype string
+sknSensors/DSMonitor/Ambient/tempRetPoolState/$datatype enum
 sknSensors/DSMonitor/Ambient/tempRetPoolState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/tempRetPool/$name Pool Return Temp
 sknSensors/DSMonitor/Ambient/tempRetPool/$datatype float
 sknSensors/DSMonitor/Ambient/tempRetPool/$unit °F
 sknSensors/DSMonitor/Ambient/tempSucSpaState/$name Pool Suction State
-sknSensors/DSMonitor/Ambient/tempSucSpaState/$datatype string
+sknSensors/DSMonitor/Ambient/tempSucSpaState/$datatype enum
 sknSensors/DSMonitor/Ambient/tempSucSpaState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/tempSucSpa/$name Pool Suction Temp
 sknSensors/DSMonitor/Ambient/tempSucSpa/$datatype float
 sknSensors/DSMonitor/Ambient/tempSucSpa/$unit °F
 sknSensors/DSMonitor/Ambient/tempRetSpaState/$name SPA Return State
-sknSensors/DSMonitor/Ambient/tempRetSpaState/$datatype string
+sknSensors/DSMonitor/Ambient/tempRetSpaState/$datatype enum
 sknSensors/DSMonitor/Ambient/tempRetSpaState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/tempRetSpa/$name SPA Return Temp
 sknSensors/DSMonitor/Ambient/tempRetSpa/$datatype float
 sknSensors/DSMonitor/Ambient/tempRetSpa/$unit °F
 sknSensors/DSMonitor/Ambient/tempRetHeaterState/$name Heater Return State
-sknSensors/DSMonitor/Ambient/tempRetHeaterState/$datatype string
+sknSensors/DSMonitor/Ambient/tempRetHeaterState/$datatype enum
 sknSensors/DSMonitor/Ambient/tempRetHeaterState/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/tempRetHeater/$name Heater Return Temp
 sknSensors/DSMonitor/Ambient/tempRetHeater/$datatype float
@@ -192,7 +192,7 @@ sknSensors/DSMonitor/Ambient/$name Environment Monitor
 sknSensors/DSMonitor/Ambient/$type sensor
 sknSensors/DSMonitor/Ambient/$properties state,temperature
 sknSensors/DSMonitor/Ambient/state/$name State
-sknSensors/DSMonitor/Ambient/state/$datatype string
+sknSensors/DSMonitor/Ambient/state/$datatype enum
 sknSensors/DSMonitor/Ambient/temperature/$name Temperature
 sknSensors/DSMonitor/Ambient/temperature/$datatype string
 sknSensors/DSMonitor/Ambient/temperature/$format OK,Error,InvalidAddress
@@ -233,7 +233,7 @@ sknSensors/DSMonitor/Ambient/temperature {"3":{"deviceAddress":"28fd883f3c190164
 ```
 
 ## Homie MQTT Log (Range/Raw)
-`DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);`
+#### `DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);`
 - Node reads multiple sensor and reports on same channel consistently during each run.
 - Node cannot certify sensorX is always on range_X.  Sensors announce in random order, thus their announce sequence is reflected by the range_x suffix. Which is subject to change after a reboot.
 - Use the Advanced constructor with assignment structure if hard association is required accross reboots.
@@ -264,7 +264,7 @@ sknSensors/DSMonitor/Ambient_2/$name Ambient_2
 sknSensors/DSMonitor/Ambient_3/$name Ambient_3
 sknSensors/DSMonitor/Ambient/$properties state,temperature
 sknSensors/DSMonitor/Ambient/state/$name State
-sknSensors/DSMonitor/Ambient/state/$datatype string
+sknSensors/DSMonitor/Ambient/state/$datatype enum
 sknSensors/DSMonitor/Ambient/state/$format OK,Error,InvalidAddress
 sknSensors/DSMonitor/Ambient/temperature/$name Temperature
 sknSensors/DSMonitor/Ambient/temperature/$datatype float

@@ -30,7 +30,7 @@ extern "C"
 #define SKN_MOD_VERSION "1.0.2"
 #define SKN_MOD_BRAND "SknSensors"
 #define SKN_MOD_TITLE "Environment Monitor"
-#define SKN_NODE_ID "DS18B20" // "environmentMonitor"
+#define SKN_NODE_ID "Ambient" // "environmentMonitor"
 
 /*
 15:23:17.400 >   ◦ Temperature=74.97 for address=28e20b943c1901a3

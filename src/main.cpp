@@ -29,7 +29,8 @@ extern "C"
 #define SKN_MOD_NAME "Environment-DS18B20"
 #define SKN_MOD_VERSION "1.0.2"
 #define SKN_MOD_BRAND "SknSensors"
-#define SKN_MOD_TITLE "Environment Monitor"
+#define SKN_NODE_TITLE "Environment Monitor"
+#define SKN_NODE_TYPE "sensor"
 #define SKN_NODE_ID "Ambient" // "environmentMonitor"
 
 /*
@@ -63,9 +64,11 @@ const uint8_t DTN_RANGE_UPPER     = 3;
 const uint8_t PIN_DS_POOL         = D4; // Pin of Temp-Sensor Pool
 const uint8_t TEMP_READ_INTERVALL = 30;
 
-DallasTemperatureNode environmentMonitor(&poolRequest, SKN_NODE_ID, SKN_MOD_TITLE, PIN_DS_POOL, TEMP_READ_INTERVALL);
-// DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_MOD_TITLE, PIN_DS_POOL, TEMP_READ_INTERVALL); 
-// DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_MOD_TITLE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);
+HomieSetting<long> sensorsIntervalSetting("sensorInterval", "The interval in seconds to wait between sending commands.");
+
+DallasTemperatureNode environmentMonitor(&poolRequestUnKnown, SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);
+// DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);
+// DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);
 
 bool broadcastHandler(const String &level, const String &value)
 {
@@ -82,8 +85,15 @@ void setup() {
   Homie_setFirmware(SKN_MOD_NAME, SKN_MOD_VERSION);
   Homie_setBrand(SKN_MOD_BRAND);
 
-  Homie.setBroadcastHandler(broadcastHandler)
-       .setup();
+  sensorsIntervalSetting.setDefaultValue(900).setValidator([](long candidate) {
+    return (candidate >= 100) && (candidate <= 3000);
+  });
+
+  environmentMonitor.setMeasurementInterval(sensorsIntervalSetting.get());
+  // environmentMonitor.setMeasurementInterval(10);
+
+      Homie.setBroadcastHandler(broadcastHandler)
+          .setup();
 }
 
 void loop() {

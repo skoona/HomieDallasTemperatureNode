@@ -18,18 +18,21 @@
  */
 #include "DallasTemperatureNode.hpp"
 
-DallasTemperatureNode::DallasTemperatureNode(pDallasProperties request, const char *id, const char *name, const uint8_t pin, const int measurementInterval)
-    : DallasTemperatureNode(id, name, pin, measurementInterval, false, 0U, 0U) {
-          requestedProperties = request;
+DallasTemperatureNode::DallasTemperatureNode(pDallasProperties request, const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval)
+    : DallasTemperatureNode(id, name, nType, pin, measurementInterval, false, 0U, 0U)
+{
+  requestedProperties = request;
 }
 
-DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, const uint8_t pin, const int measurementInterval) 
-  : DallasTemperatureNode(id, name, pin, measurementInterval, false, 0U, 0U) {
+DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval)
+    : DallasTemperatureNode(id, name, nType, pin, measurementInterval, false, 0U, 0U)
+{
 }
 
-DallasTemperatureNode::DallasTemperatureNode(const char* id, const char* name, const uint8_t pin, const int measurementInterval,
+DallasTemperatureNode::DallasTemperatureNode(const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval,
                                              bool range, uint16_t lower, uint16_t upper)
-    : HomieNode(id, name, "sensor", range, lower, upper) {
+    : HomieNode(id, name, nType, range, lower, upper)
+{
   _pin                 = pin;
   _measurementInterval = (measurementInterval > MIN_INTERVAL) ? measurementInterval : MIN_INTERVAL;
   _lastMeasurement     = 0;

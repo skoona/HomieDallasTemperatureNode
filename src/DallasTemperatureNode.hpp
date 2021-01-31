@@ -29,9 +29,9 @@ typedef struct __attribute__((packed)) _container {
 class DallasTemperatureNode : public HomieNode {
 
 public:
-  DallasTemperatureNode(const char* id, const char* name, const uint8_t pin, const int measurementInterval, bool range, uint16_t lower, uint16_t upper);
-  DallasTemperatureNode(const char* id, const char* name, const uint8_t pin, const int measurementInterval);
-  DallasTemperatureNode(pDallasProperties request, const char *id, const char *name, const uint8_t pin, const int measurementInterval);
+  DallasTemperatureNode(const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval, bool range, uint16_t lower, uint16_t upper);
+  DallasTemperatureNode(const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval);
+  DallasTemperatureNode(pDallasProperties request, const char *id, const char *name, const char *nType, const uint8_t pin, const int measurementInterval);
 
   uint8_t       getPin() const { return _pin; }
   void          setMeasurementInterval(unsigned long interval) { _measurementInterval = interval; }

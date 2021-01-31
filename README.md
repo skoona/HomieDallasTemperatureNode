@@ -89,7 +89,7 @@ DallasProperties poolRequest = {5,
 ```
 
 ## Homie MQTT Log (Advanced/Customized)
-#### `DallasTemperatureNode environmentMonitor(&poolRequestUnKnown, SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);`
+`DallasTemperatureNode environmentMonitor(&poolRequestUnKnown, SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);`
 - Node reads multiple sensor and reports to console log the sensors address.
   - using a two step process, set Interval to 10 seconds (in main.cpp), populate structure with address field empty (not Null but ""), build/run collect address from log.
   - handle or heat a sensor and notice the address of the sensor that increased.  ID accomplish
@@ -166,7 +166,7 @@ sknSensors/DSMonitor/$stats/uptime 5
 ```
 
 ## Homie MQTT Log Basic/JSON)
-#### `DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);`
+`DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL);`
 - Node reads multiple sensor and reports on SINGLE channel consistently during each run.
 - Node cannot certify sensorX is always on range_X.  Sensors announce in random order, thus their JSON messages include both an (announce) index and device address.
 - Use the Advanced constructor with assignment structure if hard association is required accross reboots.
@@ -233,7 +233,7 @@ sknSensors/DSMonitor/Ambient/temperature {"3":{"deviceAddress":"28fd883f3c190164
 ```
 
 ## Homie MQTT Log (Range/Raw)
-#### `DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);`
+`DallasTemperatureNode environmentMonitor(SKN_NODE_ID, SKN_NODE_TITLE, SKN_NODE_TYPE, PIN_DS_POOL, TEMP_READ_INTERVALL, true, DTN_RANGE_LOWER, DTN_RANGE_UPPER);`
 - Node reads multiple sensor and reports on same channel consistently during each run.
 - Node cannot certify sensorX is always on range_X.  Sensors announce in random order, thus their announce sequence is reflected by the range_x suffix. Which is subject to change after a reboot.
 - Use the Advanced constructor with assignment structure if hard association is required accross reboots.
